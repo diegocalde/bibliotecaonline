@@ -53,14 +53,16 @@ class libroController {
     controladorLibro.renderizarProductos();
   });
   
-  // Inicializa una lista vacía para el carrito de compras
-  const listaCarrito = [];
-  
+  // Inicializa la  lista de carrito a partir de localStorage o una lista vacia
+  const listaCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
   // Función para agregar un libro al carrito
   function agregarAlCarrito(e) {
     const arrayProductos = JSON.parse(localStorage.getItem("listaLibros"));
     const encontrado = arrayProductos.find((p) => p.id === parseInt(e.target.id));
     listaCarrito.push(encontrado);
+     // Guarda la lista de carrito en localStorage
+   localStorage.setItem("carrito", JSON.stringify(listaCarrito));
+
   
     // Borra el contenido del carrito y luego muestra los libros en el carrito
     contenedor_carrito.innerHTML = "";
